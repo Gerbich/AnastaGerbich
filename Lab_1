@@ -1,0 +1,952 @@
+login as: user1
+user1@95.67.15.75's password:
+Welcome to Ubuntu 16.04 LTS (GNU/Linux 4.4.67-1-pve x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+Last login: Thu Sep  13 19:06:02 2018 from 91.215.8.31
+
+
+user1@lab:~$ hostname
+lab
+
+
+user1@lab:~$ whoami
+user1
+
+
+user1@lab:~$ pwd
+/home/user1
+
+
+user1@lab:~$ date +"%y-%m-%d, %A"
+17-11-03, Friday
+
+
+user1@lab:~$ ls
+nano.save  test.sh  text
+
+
+user1@lab:~$ ls -l
+total 8
+-rw------- 1 user1 user1  2 Oct 27 07:41 nano.save
+-rw-rw-r-- 1 user1 user1  0 Oct 20 09:29 test.sh
+-rwxrwxr-x 1 user1 user1 26 Oct 27 07:24 text
+
+
+user1@lab:~$ ls -ld /home
+drwxr-xr-x 12 root root 4096 Oct 20 07:59 /home
+
+
+user1@lab:~$ ls -l /home
+total 40
+drwxr-xr-x 4 user1  user1  4096 Oct 27 07:41 user1
+drwxr-xr-x 4 user10 user10 4096 Oct 27 08:17 user10
+drwxr-xr-x 2 user2  user2  4096 Oct 20 07:59 user2
+drwxr-xr-x 4 user3  user3  4096 Oct 31 15:55 user3
+drwxr-xr-x 2 user4  user4  4096 Oct 20 07:59 user4
+drwxr-xr-x 2 user5  user5  4096 Oct 20 07:59 user5
+drwxr-xr-x 2 user6  user6  4096 Oct 20 07:59 user6
+drwxr-xr-x 2 user7  user7  4096 Oct 20 07:59 user7
+drwxr-xr-x 2 user8  user8  4096 Oct 20 07:59 user8
+drwxr-xr-x 3 user9  user9  4096 Oct 20 08:06 user9
+
+
+user1@lab:~$ grep root /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+
+
+user1@lab:~$ man grep
+GREP(1)                     General Commands Manual                    GREP(1)
+
+NAME
+       grep, egrep, fgrep, rgrep - print lines matching a pattern
+
+SYNOPSIS
+       grep [OPTIONS] PATTERN [FILE...]
+       grep [OPTIONS] [-e PATTERN]...  [-f FILE]...  [FILE...]
+
+DESCRIPTION
+       grep searches the named input FILEs for lines containing a match to the
+       given PATTERN.  If no files are specified, or if the file "-" is given,
+       grep  searches  standard  input.   By default, grep prints the matching
+       lines.
+
+       In addition, the variant programs egrep, fgrep and rgrep are  the  same
+       as  grep -E,  grep -F,  and  grep -r, respectively.  These variants are
+       deprecated, but are provided for backward compatibility.
+
+OPTIONS
+   Generic Program Information
+       --help Output a usage message and exit.
+       
+user1@lab:~$ cat /etc/bash.bashrc
+# System-wide .bashrc file for interactive bash(1) shells.
+
+# To enable the settings / commands in this file for login shells as well,
+# this file has to be sourced in /etc/profile.
+
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, overwrite the one in /etc/profile)
+PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+
+# Commented out, don't overwrite xterm -T "title" -n "icontitle" by default.
+# If this is an xterm set the title to user@host:dir
+#case "$TERM" in
+#xterm*|rxvt*)
+#    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
+#    ;;
+#*)
+#    ;;
+#esac
+
+# enable bash completion in interactive shells
+#if ! shopt -oq posix; then
+#  if [ -f /usr/share/bash-completion/bash_completion ]; then
+#    . /usr/share/bash-completion/bash_completion
+#  elif [ -f /etc/bash_completion ]; then
+#    . /etc/bash_completion
+#  fi
+#fi
+
+# sudo hint
+if [ ! -e "$HOME/.sudo_as_admin_successful" ] && [ ! -e "$HOME/.hushlogin" ] ; then
+    case " $(groups) " in *\ admin\ *|*\ sudo\ *)
+    if [ -x /usr/bin/sudo ]; then
+        cat <<-EOF
+        To run a command as administrator (user "root"), use "sudo <command>".
+        See "man sudo_root" for details.
+
+        EOF
+    fi
+    esac
+fi
+
+# if the command-not-found package is installed, use it
+if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found/command-not-found ]; then
+        function command_not_found_handle {
+                # check because c-n-f could've been removed in the meantime
+                if [ -x /usr/lib/command-not-found ]; then
+                   /usr/lib/command-not-found -- "$1"
+                   return $?
+                elif [ -x /usr/share/command-not-found/command-not-found ]; then
+                   /usr/share/command-not-found/command-not-found -- "$1"
+                   return $?
+                else
+                   printf "%s: command not found\n" "$1" >&2
+                   return 127
+                fi
+        }
+fi
+
+user1@lab:~$ less /etc/bash.bashrc
+# System-wide .bashrc file for interactive bash(1) shells.
+
+# To enable the settings / commands in this file for login shells as well,
+# this file has to be sourced in /etc/profile.
+
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, overwrite the one in /etc/profile)
+PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+
+# Commented out, don't overwrite xterm -T "title" -n "icontitle" by default.
+# If this is an xterm set the title to user@host:dir
+#case "$TERM" in
+#xterm*|rxvt*)
+#    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
+#    ;;
+#*)
+#    ;;
+#esac
+
+# enable bash completion in interactive shells
+#if ! shopt -oq posix; then
+#  if [ -f /usr/share/bash-completion/bash_completion ]; then
+#    . /usr/share/bash-completion/bash_completion
+#  elif [ -f /etc/bash_completion ]; then
+#    . /etc/bash_completion
+#  fi
+#fi
+
+# sudo hint
+if [ ! -e "$HOME/.sudo_as_admin_successful" ] && [ ! -e "$HOME/.hushlogin" ] ; then
+    case " $(groups) " in *\ admin\ *|*\ sudo\ *)
+    if [ -x /usr/bin/sudo ]; then
+        cat <<-EOF
+        To run a command as administrator (user "root"), use "sudo <command>".
+        See "man sudo_root" for details.
+
+        EOF
+    fi
+    esac
+fi
+
+# if the command-not-found package is installed, use it
+if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found/command-not-found ]; then
+        function command_not_found_handle {
+                # check because c-n-f could've been removed in the meantime
+                if [ -x /usr/lib/command-not-found ]; then
+                   /usr/lib/command-not-found -- "$1"
+                   return $?
+                elif [ -x /usr/share/command-not-found/command-not-found ]; then
+                   /usr/share/command-not-found/command-not-found -- "$1"
+                   return $?
+                else
+                   printf "%s: command not found\n" "$1" >&2
+                   return 127
+                fi
+        }
+fi
+
+
+user1@lab:~$ ls -l text
+-rwxrwxr-x 1 user1 user1 26 Oct 27 07:24 text
+
+
+user1@lab:~$ wc
+good day today
+good day
+      2       5      24
+
+
+user1@lab:~$ head -n3 /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+
+
+user1@lab:~$ head -n3 /etc/passwd | wc
+      3       3     117
+
+
+user1@lab:~$ head -n3 /etc/passwd | wc | wc
+      1       3      24
+
+
+user1@lab:~$ date > /tmp/today.txt
+user1@lab:~$ cat /tmp/today.txt
+Fri Nov  3 09:06:23 UTC 2017
+
+
+user1@lab:~$ date >> /tmp/today.txt
+user1@lab:~$ cat /tmp/today.txt
+Fri Nov  3 09:06:23 UTC 2017
+Fri Nov  3 09:07:29 UTC 2017
+
+
+user1@lab:~$ wc < /etc/passwd
+  38   50 1878
+
+
+user1@lab:~$ ps axuww
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.4  39288  4540 ?        Ss   Oct20   0:05 /sbin/init
+root        43  0.0  2.8  66016 29408 ?        Ss   Oct20   1:00 /lib/systemd/systemd-journald
+root        73  0.0  0.5 274980  5592 ?        Ssl  Oct20   0:27 /usr/lib/accountsservice/accounts-daemon
+syslog      74  0.0  0.3 258440  3672 ?        Ssl  Oct20   0:13 /usr/sbin/rsyslogd -n
+root        77  0.0  0.2  28112  2440 ?        Ss   Oct20   0:01 /usr/sbin/cron -f
+root        78  0.0  0.2  30592  2872 ?        Ss   Oct20   0:00 /lib/systemd/systemd-logind
+message+    80  0.0  0.3  44936  3524 ?        Ss   Oct20   0:00 /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation
+root       190  0.0  0.1  14888  1844 pts/0    Ss+  Oct20   0:00 /sbin/agetty --noclear --keep-baud console 115200 38400 9600 vt220
+root       192  0.0  0.1  14888  1820 pts/1    Ss+  Oct20   0:00 /sbin/agetty --noclear --keep-baud pts/1 115200 38400 9600 vt220
+root       193  0.0  0.2  67876  2848 pts/0    Ss   Oct20   0:00 /bin/login --
+root       310  0.0  0.3  67452  4188 ?        Ss   Oct20   0:02 /usr/lib/postfix/sbin/master
+postfix    313  0.0  0.3  69684  4172 ?        S    Oct20   0:00 qmgr -l -t unix -u
+root       332  0.0  0.3  38580  3284 ?        Ss   Oct20   0:00 /lib/systemd/systemd --user
+root       333  0.0  0.0  62648   872 ?        S    Oct20   0:00 (sd-pam)
+root       336  0.0  0.4  21196  4424 pts/0    S+   Oct20   0:00 -bash
+root       544  0.0  0.6  67656  6656 ?        Ss   Oct20   0:13 /usr/sbin/sshd -D
+user1     1365  0.0  0.3  47160  3788 ?        Ss   Oct20   0:00 /lib/systemd/systemd --user
+user1     1366  0.0  0.0  62648  1044 ?        S    Oct20   0:00 (sd-pam)
+user10    2126  0.0  0.3  47160  3916 ?        Ss   Oct20   0:00 /lib/systemd/systemd --user
+user10    2127  0.0  0.0  62648  1044 ?        S    Oct20   0:00 (sd-pam)
+user9     2152  0.0  0.3  47144  4028 ?        Ss   Oct20   0:00 /lib/systemd/systemd --user
+user9     2153  0.0  0.0  62648  1048 ?        S    Oct20   0:00 (sd-pam)
+postfix   7172  0.0  0.4  69520  4404 ?        S    16:20   0:00 pickup -l -t unix -u -c
+root      7270  0.0  0.6  97616  7180 ?        Ss   16:55   0:00 sshd: user1 [priv]
+user1     7293  0.0  0.4  97616  4484 ?        S    16:56   0:00 sshd: user1@pts/2
+user1     7296  0.0  0.4  21184  4256 pts/2    Ss   16:56   0:00 -bash
+user1     7688  0.0  0.7  53044  8212 pts/2    T    17:38   0:00 vim
+root      7805  0.0  0.5  69000  6176 ?        Ss   17:54   0:00 sshd: [accepted]
+sshd      7806  0.0  0.3  69000  3232 ?        S    17:54   0:00 sshd: [net]
+user1     7807  0.0  0.2  36468  2880 pts/2    R+   17:54   0:00 ps axuww
+user3    25374  0.0  0.4  47144  4860 ?        Ss   Oct27   0:00 /lib/systemd/systemd --user
+user3    25375  0.0  0.1  62740  1172 ?        S    Oct27   0:00 (sd-pam)
+
+
+user1@lab:~$ ps axuww | grep `whoami`
+user1     1365  0.0  0.3  47160  3788 ?        Ss   Oct20   0:00 /lib/systemd/systemd --user
+user1     1366  0.0  0.0  62648  1044 ?        S    Oct20   0:00 (sd-pam)
+user10    2126  0.0  0.3  47160  3916 ?        Ss   Oct20   0:00 /lib/systemd/systemd --user
+user10    2127  0.0  0.0  62648  1044 ?        S    Oct20   0:00 (sd-pam)
+root      7270  0.0  0.6  97616  7180 ?        Ss   16:55   0:00 sshd: user1 [priv]
+user1     7293  0.0  0.4  97616  4484 ?        S    16:56   0:00 sshd: user1@pts/2
+user1     7296  0.0  0.4  21184  4256 pts/2    Ss   16:56   0:00 -bash
+user1     7688  0.0  0.7  53044  8212 pts/2    T    17:38   0:00 vim
+user1     7815  0.0  0.2  36468  2916 pts/2    R+   17:55   0:00 ps axuww
+user1     7816  0.0  0.0  13332  1016 pts/2    S+   17:55   0:00 grep user1
+
+
+user1@lab:~$ ps axuww | grep `whoami` | grep '\<task-6-server\>'
+user1     8098  0.0  0.0  13332  1020 pts/2    S+   18:19   0:00 grep \<task-6-server\>
+
+
+user1@lab:~$ ps axuww | grep `whoami` | grep '\<task-6-server\>' | grep -v vim
+user1     8104  0.0  0.0  13332   936 pts/2    S+   18:19   0:00 grep \<task-6-server\>
+
+
+user1@lab:~$ ps axuww | grep `whoami` | grep '\<task-6-server\>' | grep -v vim | grep -v less
+user1     8109  0.0  0.0  13332   960 pts/2    S+   18:20   0:00 grep \<task-6-server\>
+
+
+user1@lab:~$ ps axuww | grep `whoami` | grep '\<task-6-server\>' | grep -v vim | grep -v less | awk '{print $2}'
+8120
+
+
+user1@lab:~$ ps axuww | grep `whoami` | grep '\<task-6-server\>' | grep -v vim | grep -v less | awk '{print $2}' | wc -l
+1
+
+user1@lab:~$ ps axuww | grep `whoami` | grep '\<task-6-server\>' | wc -l
+1
+
+user1@lab:~$ ps axuww | grep `whoami` | wc -l
+11
+
+user1@lab:~$ ps axuww | wc -l
+36
+
+
+user1@lab:~$ ps axuww | grep `whoami` | grep '\<task-6-server\>' | grep -v vim | grep -v less | awk '{print $2}' | wc -l >pids
+
+user1@lab:~$ ls
+nano.save  pids  test.sh  text
+
+user1@lab:~$ ls -l
+total 12
+-rw------- 1 user1 user1  2 Oct 27 07:41 nano.save
+-rw-rw-r-- 1 user1 user1  2 Nov  4 18:41 pids
+-rw-rw-r-- 1 user1 user1  0 Oct 20 09:29 test.sh
+-rwxrwxr-x 1 user1 user1 26 Oct 27 07:24 text
+
+user1@lab:~$ cat pids
+1
+
+
+user1@lab:~$ ps axuww | grep `whoami` | grep '\<task-6-server\>' | grep -v vim | grep -v less | awk '{print $2}' | wc -l | xargs kill -9
+
+Завдання для тренування
+
+отримайте список усіх файлів і каталогів у вашому домашньому каталозі;
+
+user1@lab:~$ ls
+nano.save  pids  test.sh  text
+
+
+user1@lab:~$ ls -l
+total 8
+-rw------- 1 user1 user1  2 Oct 27 07:41 nano.save
+-rw-rw-r-- 1 user1 user1  0 Nov  4 18:45 pids
+-rw-rw-r-- 1 user1 user1  0 Oct 20 09:29 test.sh
+-rwxrwxr-x 1 user1 user1 26 Oct 27 07:24 text
+
+
+user1@lab:~$ ls -lS
+total 8
+-rwxrwxr-x 1 user1 user1 26 Oct 27 07:24 text
+-rw------- 1 user1 user1  2 Oct 27 07:41 nano.save
+-rw-rw-r-- 1 user1 user1  0 Nov  4 18:45 pids
+-rw-rw-r-- 1 user1 user1  0 Oct 20 09:29 test.sh
+
+
+user1@lab:~$ ls -lt
+total 8
+-rw-rw-r-- 1 user1 user1  0 Nov  4 18:45 pids
+-rw------- 1 user1 user1  2 Oct 27 07:41 nano.save
+-rwxrwxr-x 1 user1 user1 26 Oct 27 07:24 text
+-rw-rw-r-- 1 user1 user1  0 Oct 20 09:29 test.sh
+
+
+user1@lab:~$ ls -ld
+drwxr-xr-x 4 user1 user1 4096 Nov  4 18:39 .
+
+
+user1@lab:~$ ls -ld /etc
+drwxr-xr-x 77 root root 4096 Oct 20 07:59 /etc
+
+
+user1@lab:~$ ls -ld /etc/passwd
+-rw-r--r-- 1 root root 1878 Oct 20 07:58 /etc/passwd
+
+
+user1@lab:~$ ls -ld /home
+drwxr-xr-x 12 root root 4096 Oct 20 07:59 /home
+
+
+user1@lab:~$ ls -a
+.  ..  .bash_history  .cache  .nano  .swm  .swn  .swo  .swp  .test.sh.swo  .test.sh.swp  .viminfo  nano.save  pids  test.sh  text
+
+
+user1@lab:~$ ls -all
+total 104
+drwxr-xr-x  4 user1 user1  4096 Nov  4 18:39 .
+drwxr-xr-x 12 root  root   4096 Oct 20 07:59 ..
+-rw-------  1 user1 user1  2959 Nov  3 09:35 .bash_history
+drwx------  2 user1 user1  4096 Oct 20 08:00 .cache
+drwxrwxr-x  2 user1 user1  4096 Oct 27 07:19 .nano
+-rw-------  1 user1 user1 12288 Oct 20 09:39 .swm
+-rw-------  1 user1 user1 12288 Oct 20 09:40 .swn
+-rw-------  1 user1 user1 12288 Oct 20 09:14 .swo
+-rw-------  1 user1 user1 12288 Oct 20 08:51 .swp
+-rw-------  1 user1 user1 12288 Oct 20 09:28 .test.sh.swo
+-rw-------  1 user1 user1 12288 Oct 20 09:08 .test.sh.swp
+-rw-------  1 user1 user1  1256 Nov  4 17:43 .viminfo
+-rw-------  1 user1 user1     2 Oct 27 07:41 nano.save
+-rw-rw-r--  1 user1 user1     0 Nov  4 18:45 pids
+-rw-rw-r--  1 user1 user1     0 Oct 20 09:29 test.sh
+-rwxrwxr-x  1 user1 user1    26 Oct 27 07:24 text
+
+
+user1@lab:~$ find .
+.
+./test.sh
+./.swo
+./.viminfo
+./.bash_history
+./.cache
+./.cache/motd.legal-displayed
+./.nano
+./.lesshst
+./pids
+./text
+./.swm
+./nano.save
+./.test.sh.swp
+./.swp
+./.swn
+./.test.sh.swo
+
+
+user1@lab:~$ find / | less
+/
+/tmp
+/tmp/.XIM-unix
+/tmp/.font-unix
+/tmp/.X11-unix
+/tmp/.ICE-unix
+/tmp/.Test-unix
+/tmp/list
+/tmp/today.txt
+/srv
+/lost+found
+/boot
+/lib64
+/lib64/ld-linux-x86-64.so.2
+/dev
+/dev/log
+/dev/hugepages
+/dev/initctl
+/dev/core
+/dev/shm
+/dev/tty2
+/dev/tty1
+/dev/ptmx
+/dev/stderr
+/dev/stdout
+/dev/stdin
+/dev/fd
+/dev/console
+/dev/lxc
+/dev/lxc/tty2
+/dev/lxc/tty1
+/dev/lxc/console
+/dev/tty
+/dev/random
+/dev/urandom
+/dev/full
+/dev/zero
+/dev/null
+/dev/mqueue
+/dev/pts
+/dev/pts/2
+/dev/pts/1
+/dev/pts/0
+/dev/pts/ptmx
+/media
+:
+
+
+user1@lab:~$ find ~ -name "text"
+/home/user1/text
+
+
+user1@lab:~$ find ~ -name "test.sh"
+/home/user1/test.sh
+
+
+user1@lab:/home$ find . -user user1
+./user1
+./user1/test.sh
+./user1/.swo
+./user1/.viminfo
+./user1/.bash_history
+./user1/.cache
+./user1/.cache/motd.legal-displayed
+./user1/.nano
+./user1/.lesshst
+./user1/pids
+./user1/text
+./user1/.swm
+./user1/nano.save
+./user1/.test.sh.swp
+./user1/.swp
+./user1/.swn
+./user1/.test.sh.swo
+
+
+user1@lab:/home$ find . -user user1 -name "text"
+./user1/text
+
+
+отримайте список всіх man-статей із категорії 2 (системні виклики); 
+
+user1@lab:~$ man 2 fork
+
+FORK(2)                    Linux Programmer's Manual                   FORK(2)
+
+NAME
+       fork - create a child process
+
+SYNOPSIS
+       #include <unistd.h>
+
+       pid_t fork(void);
+
+DESCRIPTION
+       fork()  creates  a new process by duplicating the calling process.  The
+       new process is referred to as the child process.  The  calling  process
+       is referred to as the parent process.
+
+       The child process and the parent process run in separate memory spaces.
+       At the time of fork() both memory spaces have the same content.  Memory
+       writes,  file  mappings (mmap(2)), and unmappings (munmap(2)) performed
+       by one of the processes do not affect the other.
+
+       The child process is an exact duplicate of the  parent  process  except
+       for the following points:
+	   
+       *  The child has its own unique process ID, and this PID does not match
+          the ID of any existing process group (setpgid(2)).
+
+       *  The child's parent process ID is the same as  the  parent's  process
+          ID.
+
+       *  The  child  does  not  inherit  its parent's memory locks (mlock(2),
+          mlockall(2)).
+
+       *  Process resource utilizations (getrusage(2)) and CPU  time  counters
+          (times(2)) are reset to zero in the child.
+
+       *  The  child's  set  of  pending  signals is initially empty (sigpend‐
+          ing(2)).
+
+       *  The child does not inherit semaphore  adjustments  from  its  parent
+          (semop(2)).
+
+       *  The  child does not inherit process-associated record locks from its
+          parent (fcntl(2)).  (On the other hand,  it  does  inherit  fcntl(2)
+          open file description locks and flock(2) locks from its parent.)
+		         *  The  child  does  not  inherit timers from its parent (setitimer(2),
+          alarm(2), timer_create(2)).
+
+       *  The child does not inherit outstanding asynchronous  I/O  operations
+          from its parent (aio_read(3), aio_write(3)), nor does it inherit any
+          asynchronous I/O contexts from its parent (see io_setup(2)).
+
+       The process attributes in the  preceding  list  are  all  specified  in
+       POSIX.1.   The parent and child also differ with respect to the follow‐
+       ing Linux-specific process attributes:
+
+       *  The child does not inherit directory change notifications  (dnotify)
+          from its parent (see the description of F_NOTIFY in fcntl(2)).
+
+       *  The  prctl(2)  PR_SET_PDEATHSIG  setting  is reset so that the child
+          does not receive a signal when its parent terminates.
+
+       *  The default timer slack value is set to the parent's  current  timer
+          slack value.  See the description of PR_SET_TIMERSLACK in prctl(2).
+
+       *  Memory mappings that have been marked with the madvise(2) MADV_DONT‐
+          FORK flag are not inherited across a fork().
+       *  The  termination  signal  of  the  child  is  always  SIGCHLD   (see
+          clone(2)).
+
+       *  The  port  access permission bits set by ioperm(2) are not inherited
+          by the child; the child must turn on any bits that it requires using
+          ioperm(2).
+
+       Note the following further points:
+
+       *  The  child  process  is  created  with  a single thread—the one that
+          called fork().  The entire virtual address space of  the  parent  is
+          replicated  in the child, including the states of mutexes, condition
+          variables, and other pthreads objects; the use of  pthread_atfork(3)
+          may be helpful for dealing with problems that this can cause.
+
+       *  After  a  fork(2)  in  a multithreaded program, the child can safely
+          call only async-signal-safe functions  (see  signal(7))  until  such
+          time as it calls execve(2).
+
+       *  The  child inherits copies of the parent's set of open file descrip‐
+          tors.  Each file descriptor in the child refers  to  the  same  open
+          file  description (see open(2)) as the corresponding file descriptor
+          in the parent.  This means that the two descriptors share open  file
+          status  flags, current file offset, and signal-driven I/O attributes
+          (see the description of F_SETOWN and F_SETSIG in fcntl(2)).
+
+       *  The child inherits copies of the parent's set of open message  queue
+          descriptors  (see  mq_overview(7)).   Each  descriptor  in the child
+          refers to the same open message queue description as the correspond‐
+          ing  descriptor  in the parent.  This means that the two descriptors
+          share the same flags (mq_flags).
+
+       *  The child inherits copies of the  parent's  set  of  open  directory
+          streams  (see  opendir(3)).   POSIX.1  says  that  the corresponding
+          directory streams in the parent and child may  share  the  directory
+          stream positioning; on Linux/glibc they do not.
+
+RETURN VALUE
+       On success, the PID of the child process is returned in the parent, and
+       0 is returned in the child.  On failure, -1 is returned in the  parent,
+       no child process is created, and errno is set appropriately.
+
+ERRORS
+       EAGAIN
+
+              A system-imposed limit on the number of threads was encountered.
+              There are a number of limits that may trigger  this  error:  the
+              RLIMIT_NPROC  soft  resource limit (set via setrlimit(2)), which
+              limits the number of processes and threads for a real  user  ID,
+              was  reached;  the  kernel's  system-wide limit on the number of
+              processes and threads, /proc/sys/kernel/threads-max, was reached
+              (see  proc(5));  or  the  maximum number of PIDs, /proc/sys/ker‐
+              nel/pid_max, was reached (see proc(5)).
+
+       EAGAIN The caller is operating under the SCHED_DEADLINE scheduling pol‐
+              icy and does not have the reset-on-fork flag set.  See sched(7).
+
+       ENOMEM fork()  failed  to  allocate  the  necessary  kernel  structures
+              because memory is tight.
+
+       ENOSYS fork() is not supported on this platform (for example,  hardware
+              without a Memory-Management Unit).
+
+CONFORMING TO
+       POSIX.1-2001, POSIX.1-2008, SVr4, 4.3BSD.
+
+NOTES
+       Under  Linux,  fork()  is implemented using copy-on-write pages, so the
+       only penalty that it incurs is the time and memory required  to  dupli‐
+       cate  the  parent's  page tables, and to create a unique task structure
+       for the child.
+
+   C library/kernel differences
+       Since version 2.3.3, rather than invoking the  kernel's  fork()  system
+       call,  the  glibc  fork()  wrapper that is provided as part of the NPTL
+       threading implementation invokes clone(2) with flags that  provide  the
+       same  effect  as  the  traditional  system  call.  (A call to fork() is
+       equivalent to a call to clone(2) specifying  flags  as  just  SIGCHLD.)
+       The  glibc wrapper invokes any fork handlers that have been established
+       using pthread_atfork(3).
+
+EXAMPLE
+       See pipe(2) and wait(2).
+
+SEE ALSO
+       clone(2),  execve(2),  exit(2),  setrlimit(2),  unshare(2),   vfork(2),
+       wait(2), daemon(3), capabilities(7), credentials(7)
+
+COLOPHON
+       This  page  is  part of release 4.04 of the Linux man-pages project.  A
+       description of the project, information about reporting bugs,  and  the
+       latest     version     of     this    page,    can    be    found    at
+       http://www.kernel.org/doc/man-pages/.
+
+Linux                             2015-12-28                           FORK(2)
+
+
+user1@lab:~$ man 2 dup2
+
+DUP(2)                     Linux Programmer's Manual                    DUP(2)
+
+NAME
+       dup, dup2, dup3 - duplicate a file descriptor
+
+SYNOPSIS
+       #include <unistd.h>
+
+       int dup(int oldfd);
+       int dup2(int oldfd, int newfd);
+
+       #define _GNU_SOURCE             /* See feature_test_macros(7) */
+       #include <fcntl.h>              /* Obtain O_* constant definitions */
+       #include <unistd.h>
+
+       int dup3(int oldfd, int newfd, int flags);
+
+DESCRIPTION
+       The  dup()  system  call  creates  a copy of the file descriptor oldfd,
+       using the lowest-numbered unused descriptor for the new descriptor.
+
+       After a successful return, the old and new file descriptors may be used
+       interchangeably.   They  refer  to  the same open file description (see
+       open(2)) and thus share file offset and file status flags; for example,
+       if the file offset is modified by using lseek(2) on one of the descrip‐
+       tors, the offset is also changed for the other.
+
+       The two descriptors do not share file descriptor flags  (the  close-on-
+       exec  flag).  The close-on-exec flag (FD_CLOEXEC; see fcntl(2)) for the
+       duplicate descriptor is off.
+
+   dup2()
+       The dup2() system call performs the same task as dup(), but instead  of
+       using  the lowest-numbered unused file descriptor, it uses the descrip‐
+       tor number specified in newfd.  If the descriptor newfd was  previously
+       open, it is silently closed before being reused.
+
+       The  steps  of  closing  and reusing the file descriptor newfd are per‐
+       formed atomically.  This is  important,  because  trying  to  implement
+       equivalent  functionality  using close(2) and dup() would be subject to
+       race conditions, whereby newfd might be reused between the  two  steps.
+       Such  reuse  could  happen because the main program is interrupted by a
+       signal handler that allocates a file descriptor, or because a  parallel
+       thread allocates a file descriptor.
+
+       Note the following points:
+
+       *  If  oldfd  is  not a valid file descriptor, then the call fails, and
+          newfd is not closed.
+
+       *  If oldfd is a valid file descriptor, and newfd has the same value as
+          oldfd, then dup2() does nothing, and returns newfd.
+
+   dup3()
+       dup3() is the same as dup2(), except that:
+
+       *  The  caller  can  force the close-on-exec flag to be set for the new
+          file descriptor by specifying O_CLOEXEC in flags.  See the  descrip‐
+          tion of the same flag in open(2) for reasons why this may be useful.
+
+       *  If oldfd equals newfd, then dup3() fails with the error EINVAL.
+
+RETURN VALUE
+       On success, these system calls return the new descriptor.  On error, -1
+       is returned, and errno is set appropriately.
+
+ERRORS
+       EBADF  oldfd isn't an open file descriptor.
+
+       EBADF  newfd is out of the allowed range for file descriptors (see  the
+              discussion of RLIMIT_NOFILE in getrlimit(2)).
+
+       EBUSY  (Linux  only)  This may be returned by dup2() or dup3() during a
+              race condition with open(2) and dup().
+
+       EINTR  The dup2() or dup3() call was interrupted by a signal; see  sig‐
+              nal(7).
+
+       EINVAL (dup3()) flags contain an invalid value.
+
+       EINVAL (dup3()) oldfd was equal to newfd.
+
+       EMFILE The per-process limit on the number of open file descriptors has
+              been reached (see  the  discussion  of  RLIMIT_NOFILE  in  getr‐
+              limit(2)).
+
+VERSIONS
+       dup3() was added to Linux in version 2.6.27; glibc support is available
+       starting with version 2.9.
+
+CONFORMING TO
+       dup(), dup2(): POSIX.1-2001, POSIX.1-2008, SVr4, 4.3BSD.
+
+       dup3() is Linux-specific.
+
+NOTES
+       The error returned  by  dup2()  is  different  from  that  returned  by
+       fcntl(..., F_DUPFD, ...)  when newfd is out of range.  On some systems,
+       dup2() also sometimes returns EINVAL like F_DUPFD.
+
+       If newfd was open, any errors that would have been reported at close(2)
+       time  are lost.  If this is of concern, then—unless the program is sin‐
+       gle-threaded and does not allocate file descriptors in signal handlers—
+       the  correct  approach  is  not  to  close newfd before calling dup2(),
+       because of the race condition described above.  Instead, code something
+       like the following could be used:
+
+           /* Obtain a duplicate of 'newfd' that can subsequently
+              be used to check for close() errors; an EBADF error
+              means that 'newfd' was not open. */
+
+           tmpfd = dup(newfd);
+           if (tmpfd == -1 && errno != EBADF) {
+               /* Handle unexpected dup() error */
+           }
+
+           /* Atomically duplicate 'oldfd' on 'newfd' */
+
+           if (dup2(oldfd, newfd) == -1) {
+               /* Handle dup2() error */
+           }
+
+           /* Now check for close() errors on the file originally
+              referred to by 'newfd' */
+
+           if (tmpfd != -1) {
+               if (close(tmpfd) == -1) {
+                   /* Handle errors from close */
+               }
+           }
+
+SEE ALSO
+       close(2), fcntl(2), open(2)
+
+COLOPHON
+       This  page  is  part of release 4.04 of the Linux man-pages project.  A
+       description of the project, information about reporting bugs,  and  the
+       latest     version     of     this    page,    can    be    found    at
+       http://www.kernel.org/doc/man-pages/.
+
+Linux                             2015-12-28                            DUP(2)
+
+
+порахуйте, скільки разів у man-е по програмі grep зустрічається слово grep;
+
+user1@lab:~$ man -k grep
+bzegrep (1)          - search possibly bzip2 compressed files for a regular expression
+bzfgrep (1)          - search possibly bzip2 compressed files for a regular expression
+bzgrep (1)           - search possibly bzip2 compressed files for a regular expression
+egrep (1)            - print lines matching a pattern
+fgrep (1)            - print lines matching a pattern
+grep (1)             - print lines matching a pattern
+pgrep (1)            - look up or signal processes based on name and other attributes
+rgrep (1)            - print lines matching a pattern
+zegrep (1)           - search possibly compressed files for a regular expression
+zfgrep (1)           - search possibly compressed files for a regular expression
+zgrep (1)            - search possibly compressed files for a regular expression
+
+
+user1@lab:~$ man -f grep
+grep (1)             - print lines matching a pattern
+
+
+user1@lab:~$ man -f grep pwd whoami
+grep (1)             - print lines matching a pattern
+pwd (1)              - print name of current/working directory
+whoami (1)           - print effective userid
+
+порахуйте, скільки процесів запущено в даний момент від імені користувача root;
+
+user1@lab:~$ ps
+  PID TTY          TIME CMD
+ 7296 pts/2    00:00:00 bash
+ 7688 pts/2    00:00:00 vim
+10192 pts/2    00:00:00 ps
+
+
+user1@lab:~$ ps -s
+  UID   PID          PENDING          BLOCKED          IGNORED           CAUGHT STAT TTY        TIME COMMAND
+ 1000  7296 0000000000000000 0000000000010000 0000000000380004 000000004b817efb Ss   pts/2      0:00 -bash
+ 1000  7688 0000000000000000 0000000000000000 0000000000003000 00000001ef804eff T    pts/2      0:00 vim
+ 1000 10194 0000000000000000 0000000000000000 0000000000000000 00000001f3d1fef9 R+   pts/2      0:00 ps -s
+
+
+user1@lab:~$ ps -t
+  PID TTY      STAT   TIME COMMAND
+ 7296 pts/2    Ss     0:00 -bash
+ 7688 pts/2    T      0:00 vim
+10195 pts/2    R+     0:00 ps -t
+
+
+user1@lab:~$ ps -d
+  PID TTY          TIME CMD
+  313 ?        00:00:00 qmgr
+  333 ?        00:00:00 (sd-pam)
+  336 pts/0    00:00:00 bash
+ 1366 ?        00:00:00 (sd-pam)
+ 2127 ?        00:00:00 (sd-pam)
+ 2153 ?        00:00:00 (sd-pam)
+ 7293 ?        00:00:01 sshd
+ 7688 pts/2    00:00:00 vim
+ 8161 ?        00:00:00 (sd-pam)
+ 8968 ?        00:00:00 pickup
+10196 pts/2    00:00:00 ps
+25375 ?        00:00:00 (sd-pam)
+
+
+user1@lab:~$ ps -l
+F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+0 S  1000  7296  7293  0  80   0 -  5298 wait   pts/2    00:00:00 bash
+0 T  1000  7688  7296  0  80   0 - 13261 signal pts/2    00:00:00 vim
+0 R  1000 10199  7296  0  80   0 -  7005 -      pts/2    00:00:00 ps
+
+
+user1@lab:~$ ps -e
+  PID TTY          TIME CMD
+    1 ?        00:00:05 systemd
+   43 ?        00:01:02 systemd-journal
+   73 ?        00:00:27 accounts-daemon
+   74 ?        00:00:14 rsyslogd
+   77 ?        00:00:01 cron
+   78 ?        00:00:00 systemd-logind
+   80 ?        00:00:00 dbus-daemon
+  190 pts/0    00:00:00 agetty
+  192 pts/1    00:00:00 agetty
+  193 pts/0    00:00:00 login
+  310 ?        00:00:02 master
+  313 ?        00:00:00 qmgr
+  332 ?        00:00:00 systemd
+  333 ?        00:00:00 (sd-pam)
+  336 pts/0    00:00:00 bash
+  544 ?        00:00:13 sshd
+ 1365 ?        00:00:00 systemd
+ 1366 ?        00:00:00 (sd-pam)
+ 2126 ?        00:00:00 systemd
+ 2127 ?        00:00:00 (sd-pam)
+ 2152 ?        00:00:00 systemd
+ 2153 ?        00:00:00 (sd-pam)
+ 7270 ?        00:00:00 sshd
+ 7293 ?        00:00:01 sshd
+ 7296 pts/2    00:00:00 bash
+ 7688 pts/2    00:00:00 vim
+ 8160 ?        00:00:00 systemd
+ 8161 ?        00:00:00 (sd-pam)
+ 8968 ?        00:00:00 pickup
+10200 pts/2    00:00:00 ps
+25374 ?        00:00:00 systemd
+25375 ?        00:00:00 (sd-pam)
+
+знайдіть, яка команда зустрічається у максимальній кількості категорій справки (man);
+
+user1@lab:~$ man -k .| awk '{print $1}' | uniq -dc | sort -rn | head -1
+      8 intro
