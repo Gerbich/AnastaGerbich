@@ -1,0 +1,961 @@
+Изучение основ командной строки Юникс часть 4
+
+
+
+Bogdan Nedashkivskiy
+13 вер. (Змінено 4 жовт.)
+Додати коментар до курсу
+Создать запускаемый файл на BASH используя комманды из приложеного документа.
+
+Лабораторная работа Bash часть 3.docx
+Word
+Ваша робота
+Здано
+Estigfend
+
+лаб3.txt
+Текст
+СКАСУВАТИ НАДСИЛАННЯ
+
+Додати приватний коментар…
+
+
+login as: user1
+user1@178.20.158.119's password:
+Welcome to Ubuntu 18.04.1 LTS (GNU/Linux 4.13.13-2-pve x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+
+ * Canonical Livepatch is available for installation.
+   - Reduce system reboots and improve kernel security. Activate at:
+     https://ubuntu.com/livepatch
+Last login: Sat Nov  3 23:23:51 2018 from 176.100.20.251
+user1@host01:~$ echo "This is a test" | sed -n '/test/p'
+This is a test
+
+user1@host01:~$ echo "This is a test" | awk '/test/{print $0}'
+This is a test
+
+user1@host01:~$ echo "This is a test" | awk '/Test/{print $0}'
+user1@host01:~$ echo "This is a test" | awk '/test/{print $0}'
+This is a test
+
+user1@host01:~$ echo "This is a test 2 again" | awk '/test 2/{print $0}'
+This is a test 2 again
+
+
+user1@host01:~$ nano ./myfile
+  
+  GNU nano 2.5.3              
+
+There is 10$ on my pocket
+
+user1@host01:~$ awk '/\$/{print $0}' ./myfile
+There is 10$ on my pocket
+
+
+
+user1@host01:~$ echo "\ is a special character" | awk '/\\/{print $0}'
+\ is a special character
+
+user1@host01:~$ echo "3 / 2" | awk '///{print $0}'
+awk: line 1: syntax error at or near {
+
+user1@host01:~$ echo "3 / 2" | awk '/\//{print $0}'
+3 / 2
+
+user1@host01:~$ echo "welcome to user1 website" | awk '/^user1/{print $0}'
+user1@host01:~$ echo "user1 website" | awk '/^user1/{print $0}'
+user1 website
+
+
+user1@host01:~$ nano ./myfile
+  GNU nano 2.5.3                
+
+this is a test
+This is another test
+And this is one more
+
+user1@host01:~$ awk '/^this/{print $0}' ./myfile
+this is a test
+
+user1@host01:~$ echo "This ^ is a test" | sed -n '/s ^/p'
+This ^ is a test
+user1@host01:~$ echo "This ^ is a test" | awk '/s \^/{print $0}'
+This ^ is a test
+
+user1@host01:~$ echo "This is a test" | awk '/test$/{print $0}'
+This is a test
+user1@host01:~$ cat ./myfile
+this is a test
+This is another test
+And this is one more
+user1@host01:~$ awk '/^this is a test$/{print $0}' ./myfile
+this is a test
+
+user1@host01:~$ awk '!/^$/{print $0}' ./myfile
+this is a test
+This is another test
+And this is one more
+user1@host01:~$ cat ./myfile
+this is a test
+This is another test
+And this is one more
+start with this
+
+user1@host01:~$ awk '/.st/{print $0}' ./myfile
+this is a test
+This is another test
+
+
+
+user1@host01:~$ nano ./myfile
+  
+  GNU nano 2.5.3                
+
+this is a test
+This is another test
+And this is one more
+start with this
+
+user1@host01:~$ awk '/[oi]th/{print $0}' ./myfile
+This is another test
+start with this
+
+
+user1@host01:~$ echo "this is a test" | awk '/[Tt]his is a test/{print $0}'
+this is a test
+
+user1@host01:~$ echo "This is a test" | awk '/[Tt]his is a test/{print $0}'
+This is a test
+
+user1@host01:~$ cat ./myfile
+this is a test
+This is another test
+And this is one more
+start with this
+
+user1@host01:~$ awk '/[^oi]th/{print $0}' ./myfile
+And this is one more
+start with this
+user1@host01:~$ cat ./myfile
+this is a test
+This is another test
+And this is one more
+start with this
+
+user1@host01:~$ awk '/[e-p]st/{print $0}' ./myfile
+this is a test
+This is another test
+
+user1@host01:~$ echo "123" | awk '/[0-9][0-9][0-9]/'
+123
+user1@host01:~$ echo "12a" | awk '/[0-9][0-9][0-9]/'
+
+user1@host01:~$ cat ./myfile
+this is a test
+This is another test
+And this is one more
+start with this
+user1@host01:~$ awk '/[a-fm-z]st/{print $0}' ./myfile
+this is a test
+This is another test
+
+user1@host01:~$ echo "abc" | awk '/[[:alpha:]]/{print $0}'
+abc
+user1@host01:~$ echo "abc" | awk '/[[:digit:]]/{print $0}'
+user1@host01:~$ echo "abc123" | awk '/[[:digit:]]/{print $0}'
+123
+
+user1@host01:~$ echo "test" | awk '/tes*t/{print $0}'
+test
+user1@host01:~$ echo "tessst" | awk '/tes*t/{print $0}'
+tessst
+
+
+user1@host01:~$ echo "I like green color" | awk '/colou*r/{print $0}'
+I like green color
+
+user1@host01:~$ echo "I like green colour" | awk '/colou*r/{print $0}'
+I like green colour
+
+
+user1@host01:~$ cat ./myfile
+this is a test
+This is another test
+And this is one more
+start with this
+
+
+user1@host01:~$ awk '/this.*test/{print $0}' ./myfile
+this is a test
+
+
+user1@host01:~$ echo "st" | awk '/s[ae]*t/{print $0}'
+st
+
+user1@host01:~$ echo "sat" | awk '/s[ae]*t/{print $0}'
+sat
+
+user1@host01:~$ echo "set" | awk '/s[ae]*t/{print $0}'
+set
+
+user1@host01:~$ echo "sit" | awk '/s[ae]*t/{print $0}'
+
+user1@host01:~$ echo "s1t" | awk '/s[ae]*t/{print $0}'
+
+
+
+user1@host01:~$ echo "tet" | awk '/tes?t/{print $0}'
+tet
+
+user1@host01:~$ echo "test" | awk '/tes?t/{print $0}'
+test
+
+user1@host01:~$ echo "tesst" | awk '/tes?t/{print $0}'
+
+
+
+user1@host01:~$ echo "tst" | awk '/t[ae]?st/{print $0}'
+tst
+
+user1@host01:~$ echo "test" | awk '/t[ae]?st/{print $0}'
+test
+
+user1@host01:~$ echo "tast" | awk '/t[ae]?st/{print $0}'
+tast
+
+user1@host01:~$ echo "taest" | awk '/t[ae]?st/{print $0}'
+user1@host01:~$ echo "teest" | awk '/t[ae]?st/{print $0}'
+
+
+user1@host01:~$ echo "test" | awk '/te+st/{print $0}'
+test
+user1@host01:~$ echo "teest" | awk '/te+st/{print $0}'
+teest
+user1@host01:~$ echo "tst" | awk '/te+st/{print $0}'
+
+
+user1@host01:~$ echo "tst" | awk '/t[ae]+st/{print $0}'
+user1@host01:~$ echo "test" | awk '/t[ae]+st/{print $0}'
+test
+user1@host01:~$ echo "teast" | awk '/t[ae]+st/{print $0}'
+teast
+user1@host01:~$ echo "teeast" | awk '/t[ae]+st/{print $0}'
+teeast
+
+user1@host01:~$ echo "tst" | awk '/te{1}st/{print $0}'
+user1@host01:~$ echo "test" | awk '/te{1}st/{print $0}'
+test
+
+
+user1@host01:~$ echo "tst" | awk '/te{1,2}st/{print $0}'
+user1@host01:~$ echo "test" | awk '/te{1,2}st/{print $0}'
+test
+user1@host01:~$ echo "teest" | awk '/te{1,2}st/{print $0}'
+teest
+user1@host01:~$ echo "teeest" | awk '/te{1,2}st/{print $0}'
+
+
+user1@host01:~$ echo "tst" | awk  '/t[ae]{1,2}st/{print $0}'
+user1@host01:~$ echo "test" | awk  '/t[ae]{1,2}st/{print $0}'
+test
+user1@host01:~$ echo "teest" | awk  '/t[ae]{1,2}st/{print $0}'
+teest
+user1@host01:~$ echo "teeast" | awk  '/t[ae]{1,2}st/{print $0}'
+
+
+user1@host01:~$ echo "This is a test" | awk '/test|exam/{print $0}'
+This is a test
+user1@host01:~$ echo "This is an exam" | awk '/test|exam/{print $0}'
+This is an exam
+user1@host01:~$ echo "This is something else" | awk '/test|exam/{print $0}'
+
+
+user1@host01:~$ echo "User" | awk '/User(1)?/{print $0}'
+User
+user1@host01:~$ echo "User1" | awk '/User(1)?/{print $0}'
+User1
+
+user1@host01:~$ nano ./myscript
+  GNU nano 2.5.3                
+
+#!/bin/bash
+
+mypath=$(echo $PATH | sed 's/:/ /g')
+
+count=0
+
+for directory in $mypath
+do
+check=$(ls $directory)
+for item in $check
+do
+count=$[ $count + 1 ]
+done
+echo "$directory - $count"
+count=0
+done
+
+user1@host01:~$ ./myscript
+/usr/local/sbin - 0
+/usr/local/bin - 0
+/usr/sbin - 117
+/usr/bin - 525
+/sbin - 148
+/bin - 154
+/usr/games - 0
+/usr/local/games - 0
+
+user1@host01:~$ echo "name@host.com" | awk '/^([a-zA-Z0-9_\-\.\+]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/{print $0}'
+name@host.com
+user1@host01:~$ echo "name@host.com.us" | awk '/^([a-zA-Z0-9_\-\.\+]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/{print $0}'
+name@host.com.us
+
+
+user1@host01:~$ who
+user1    pts/2        Nov  6 22:44 (109.86.137.82)
+root     lxc/tty1     Oct 11 11:27
+user1@host01:~$ who -l
+LOGIN    console      Sep 27 19:04                91 id=cons
+LOGIN    tty1         Oct 11 11:25              5596 id=tty1
+user1@host01:~$ who -a
+           system boot  Sep 27 19:04
+           run-level 5  Sep 27 19:04
+LOGIN      console      Sep 27 19:04                91 id=cons
+LOGIN      tty1         Oct 11 11:25              5596 id=tty1
+user1    + pts/2        Nov  6 22:44   .          4822 (109.86.137.82)
+           pts/3        Nov  6 22:04              3831 id=ts/3  term=0 exit=0
+           pts/4        Nov  1 17:02             17894 id=ts/4  term=0 exit=0
+           pts/5        Nov  1 15:23             18153 id=ts/5  term=0 exit=0
+           pts/6        Nov  1 15:03             17707 id=ts/6  term=0 exit=0
+           pts/7        Nov  1 15:20             17992 id=ts/7  term=0 exit=0
+           pts/8        Oct 18 14:10             21142 id=ts/8  term=0 exit=0
+root     - lxc/tty1     Oct 11 11:27  old         5645
+user1@host01:~$ who -d
+         pts/3        Nov  6 22:04              3831 id=ts/3  term=0 exit=0
+         pts/4        Nov  1 17:02             17894 id=ts/4  term=0 exit=0
+         pts/5        Nov  1 15:23             18153 id=ts/5  term=0 exit=0
+         pts/6        Nov  1 15:03             17707 id=ts/6  term=0 exit=0
+         pts/7        Nov  1 15:20             17992 id=ts/7  term=0 exit=0
+         pts/8        Oct 18 14:10             21142 id=ts/8  term=0 exit=0
+user1@host01:~$ who -T
+user1    + pts/2        Nov  6 22:44 (109.86.137.82)
+root     - lxc/tty1     Oct 11 11:27
+user1@host01:~$ mesg
+is y
+user1@host01:~$ mesg y
+user1@host01:~$ mesg
+is y
+user1@host01:~$ who -T
+user1    + pts/2        Nov  6 22:44 (109.86.137.82)
+root     - lxc/tty1     Oct 11 11:27
+
+user1@host01:~$ write root pts/0
+write: root has messages disabled on pts/0
+user1@host01:~$ write user1 pts/2
+
+Message from user1@host01 on pts/2 at 22:44 ...
+Hello
+Hello
+EOF
+
+
+user1@host01:~$ touch +x ./senderscript
+user1@host01:~$ chmod +x ./senderscript
+user1@host01:~$ nano ./senderscript
+  
+  GNU nano 2.5.3              
+
+#!/bin/bash/
+
+logged_on=$(who | grep -i -m 1 $1 | awk '{print $1}')
+
+if [ -z $logged_on ]
+then
+echo "$1 is not logged on."
+echo "Exit"
+exit
+fi
+
+user1@host01:~$ ./senderscript user1
+user1@host01:~$ ./senderscript root
+user1@host01:~$ ./senderscript kik
+kik is not logged on.
+Exit
+
+
+user1@host01:~$ nano ./senderscript
+  
+  GNU nano 2.5.3            
+
+#!/bin/bash
+
+allowed=$(who -T | grep -i -m 1 $1 | awk '{print $2}')
+
+if [ "$allowed" != "+" ]
+then
+echo "$1 does not allowing messaging."
+echo "Exit"
+exit
+fi
+
+user1@host01:~$./senderscript user1
+user1@host01:~$ ./senderscript root
+root does not allowing messaging.
+Exit
+user1@host01:~$ ./senderscript kik
+kik does not allowing messaging.
+Exit
+
+
+
+user1@host01:~$ nano ./senderscript
+  
+  GNU nano 2.5.3             
+#!/bin/bash
+
+if [ -z $2 ]
+then
+echo "No message parameter included."
+echo "Exit"
+exit
+fi
+
+user1@host01:~$ ./senderscript user1
+No message parameter included.
+Exit
+
+user1@host01:~$ ./senderscript root
+No message parameter included.
+Exit
+user1@host01:~$ ./senderscript kik
+No message parameter included.
+Exit
+
+user1@host01:~$ ./senderscript user1 Hello
+user1@host01:~$ ./senderscript root welcome
+user1@host01:~$ ./senderscript kik error
+
+
+
+user1@host01:~$ nano ./senderscript
+  
+  GNU nano 2.5.3              
+
+#!/bin/bash
+
+logged_on=$(who | grep -i -m 1 $1 | awk '{print $1}')
+terminal=$(who | grep -i -m 1 $1 | awk '{print $2}')
+
+echo $2 | write $logged_on $terminal
+
+user1@host01:~$ who -T
+user1    + pts/2        Nov  6 22:44 (109.86.137.82)
+root     - lxc/tty1     Oct 11 11:27
+
+user1@host01:~$ ./senderscript user1 Hello
+
+Message from user1@host01 on pts/2 at 22:45 ...
+Hello
+EOF
+
+user1@host01:~$ ./senderscript root welcome
+write: root has messages disabled on pts/0
+user1@host01:~$ ./senderscript kik error
+usage: write user [tty]
+
+
+
+user1@host01:~$ ./senderscript user1 welcome to shell scripting
+
+Message from user1@host01 on pts/2 at 22:46 ...
+welcome
+EOF
+
+
+
+user1@host01:~$ nano ./senderscript
+  
+  GNU nano 2.5.3            
+#!/bin/bash
+
+logged_on=$(who | grep -i -m 1 $1 | awk '{print $1}')
+
+if [ -z $logged_on ]
+then
+echo "$1 is not logged on."
+echo "Exit"
+exit
+fi
+
+allowed=$(who -T | grep -i -m 1 $1 | awk '{print $2}')
+
+if [ $allowed != "+" ]
+then
+echo "$1 does not allowing messaging."
+echo "Exit"
+exit
+fi
+if [ -z $2 ]
+then
+echo "No message parameter included."
+echo "Exit"
+exit
+fi
+
+terminal=$(who | grep -i -m 1 $1 | awk '{print $2}')
+
+shift
+while [ -n "$1" ]
+do
+whole_message=$whole_message' '$1
+shift
+done
+echo $whole_message | write $logged_on $terminal
+
+user1@host01:~$ ./senderscript user1 welcome to shell scripting
+
+Message from user1@host01 on pts/2 at 22:46 ...
+welcome to shell scripting
+EOF
+
+
+user1@host01:~$ du -s /var/log/
+1371960 /var/log/
+user1@host01:~$ du -S /var/log/
+4       /var/log/dist-upgrade
+1228844 /var/log/journal/2a2fff2f04dc408d995be9b80a65a02e
+4       /var/log/journal
+36      /var/log/apt
+143072  /var/log/
+user1@host01:~$ du -S /var/log/ | sort -rn
+1228844 /var/log/journal/2a2fff2f04dc408d995be9b80a65a02e
+143080  /var/log/
+36      /var/log/apt
+4       /var/log/journal
+4       /var/log/dist-upgrade
+user1@host01:~$ du -S /var/log/ |
+> sort -rn
+1228844 /var/log/journal/2a2fff2f04dc408d995be9b80a65a02e
+143080  /var/log/
+36      /var/log/apt
+4       /var/log/journal
+4       /var/log/dist-upgrade
+user1@host01:~$ du -S /var/log/ |
+> sort -rn |
+> sed '{11,$D; =}' |
+> sed 'N; s/\n/ /' |
+> awk '{printf $1 ":" "\t" $2 "\t" $3 "\n"}'
+1:      1228844 /var/log/journal/2a2fff2f04dc408d995be9b80a65a02e
+2:      143112  /var/log/
+3:      36      /var/log/apt
+4:      4       /var/log/journal
+5:      4       /var/log/dist-upgrade
+
+
+
+
+user1@host01:~$ nano ./myscript
+  GNU nano 2.5.3               
+
+#!/bin/bash
+
+MY_DIRECTORIES="/home /var/log"
+echo "Top Ten Disk Space Usage"
+
+for DIR in $MY_DIRECTORIES
+do
+echo "The $DIR Directory:"
+du -S $DIR 2>/dev/null |
+sort -rn |
+sed '{11,$D; =}' |
+sed 'N; s/\n/ /' |
+awk '{printf $1 ":" "\t" $2 "\t" $3 "\n"}'
+done
+
+exit
+
+
+user1@host01:~$ ./myscript
+Top Ten Disk Space Usage
+The /home Directory:
+1:      164     /home/user1
+2:      12      /home/user7
+3:      12      /home/user10
+4:      8       /home/user9
+5:      8       /home/user3
+6:      8       /home/user2
+7:      4       /home/user9/.cache
+8:      4       /home/user8
+9:      4       /home/user7/.ssh
+10:     4       /home/user7/.nano
+The /var/log Directory:
+1:      143112  /var/log
+2:      12      /var/log/fsck
+3:      12      /var/log/apt
+4:      4       /var/log/dist-upgrade
+
+
+user1@host01:~$ nano ./questions
+  
+  GNU nano 2.5.3                  
+
+#!/bin/bash
+
+echo "Hello, who are you?"
+read $REPLY
+echo "Can I ask you some questions?"
+read $REPLY
+echo "What is your favorite topic?"
+read $REPLY
+
+
+user1@host01:~$ touch ./answerbot
+user1@host01:~$ chmod +x ./answerbot
+
+user1@host01:~$ nano ./answerbot
+  
+  GNU nano 2.5.3                 
+
+#!/usr/bin/expect -f
+
+set timeout -1
+spawn ./questions
+expect "Hello, who are you?\r"
+send -- "Im Adam\r"
+expect "Can I ask you some questions?\r"
+send -- "Sure\r"
+expect "What is your favorite topic?\r"
+send -- "Technology\r"
+expect eof
+
+
+user1@host01:~$ ./answerbot
+spawn ./questions
+Hello, who are you?
+Im Adam
+Can I ask you some questions?
+Sure
+What is your favorite topic?
+Technology
+
+
+user1@host01:~$ which expect
+/usr/bin/expect
+
+user1@host01:~$ autoexpect ./questions
+autoexpect started, file is script.exp
+Hello, who are you?
+Anasta
+Can I ask you some questions?
+Yes
+What is your favorite topic?
+Technology
+autoexpect done, file is script.exp
+
+
+user1@host01:~$ nano ./script.exp
+  
+  GNU nano 2.5.3                                      
+
+#!/usr/bin/expect -f
+#
+# This Expect script was generated by autoexpect on Mon Nov  5 23:04:44 2018
+# Expect and autoexpect were both written by Don Libes, NIST.
+#
+# Note that autoexpect does not guarantee a working script.  It
+# necessarily has to guess about certain things.  Two reasons a script
+# might fail are:
+#
+# 1) timing - A surprising number of programs (rn, ksh, zsh, telnet,
+# etc.) and devices discard or ignore keystrokes that arrive "too
+# quickly" after prompts.  If you find your new script hanging up at
+# one spot, try adding a short sleep just before the previous send.
+# Setting "force_conservative" to 1 (see below) makes Expect do this
+# automatically - pausing briefly before sending each character.  This
+# pacifies every program I know of.  The -c flag makes the script do
+# this in the first place.  The -C flag allows you to define a
+# character to toggle this mode off and on.
+
+set force_conservative 0  ;# set to 1 to force conservative mode even if
+                          ;# script wasn't run conservatively originally
+if {$force_conservative} {
+        set send_slow {1 .1}
+        proc send {ignore arg} {
+                sleep .1
+                exp_send -s -- $arg
+        }
+}
+
+#
+# 2) differing output - Some programs produce different output each time
+# they run.  The "date" command is an obvious example.  Another is
+# ftp, if it produces throughput statistics at the end of a file
+# transfer.  If this causes a problem, delete these patterns or replace
+# them with wildcards.  An alternative is to use the -p flag (for
+# "prompt") which makes Expect only look for the last line of output
+# (i.e., the prompt).  The -P flag allows you to define a character to
+# toggle this mode off and on.
+#
+# Read the man page for more info.
+#
+# -Don
+
+
+set timeout -1
+spawn ./questions
+match_max 100000
+expect -exact "Hello, who are you?\r
+"
+send -- "Anasta\r"
+expect -exact "Anasta\r
+Can I ask you some questions?\r
+"
+send -- "Yes\r"
+expect -exact "Yes\r
+What is your favorite topic?\r
+"
+send -- "Yes^?"
+expect -exact "^H ^H"
+send -- "^?"
+expect -exact "^H ^H"
+send -- "^?"
+expect -exact "^H ^H"
+send -- "Technology\r"
+expect eof
+
+
+user1@host01:~$./script.exp
+spawn ./questions
+Hello, who are you?
+Anasta
+Can I ask you some questions?
+Yes
+What is your favorite topic?
+Technology
+
+
+user1@host01:~$nano ./answerbot
+  
+  GNU nano 2.5.3                  
+
+#!/usr/bin/expect -f
+
+set my_name [lindex $argv 0]
+set my_favorite [lindex $argv 1]
+set timeout -1
+spawn ./questions
+expect "Hello, who are you?\r"
+send -- "Im $my_name\r"
+expect "Can I ask you some questions?\r"
+send -- "Sure\r"
+expect "What is your favorite topic?\r"
+send -- "$my_favorite\r"
+expect eof
+
+user1@host01:~$ ./answerbot SomeName Technology
+spawn ./questions
+Hello, who are you?
+Im SomeName
+Can I ask you some questions?
+Sure
+What is your favorite topic?
+Technology
+
+
+user1@host01:~$ nano ./questions
+  
+  GNU nano 2.5.3                  
+
+#!/bin/bash
+
+let number=$RANDOM
+
+if [ $number -gt 25000 ]
+then
+echo "What is your favorite topic?"
+else
+echo "What is your favorite movie?"
+fi
+read $REPLY
+
+
+user1@host01:~$ nano ./answerbot
+  
+  GNU nano 2.5.3                  
+
+#!/usr/bin/expect -f
+
+set timeout -1
+spawn ./questions
+
+expect {
+    "*topic?" { send -- "Technology\r" }
+    "*movie?" { send -- "Star wars\r" }
+}
+expect eof
+
+user1@host01:~$ ./answerbot
+spawn ./questions
+What is your favorite movie?
+Star wars
+
+user1@host01:~$ ./answerbot
+spawn ./questions
+What is your favorite topic?
+Technology
+
+
+
+user1@host01:~$ nano ./answerbot
+  
+  GNU nano 2.5.3                    
+#!/usr/bin/expect -f
+
+set TOTAL 1
+if { $TOTAL < 5 } {
+puts "\nTOTAL is less than 5\n"
+} elseif { $TOTAL > 5 } {
+puts "\nTOTAL greater than 5\n"
+} else {
+puts "\nTOTAL is equal to 5\n"
+}
+expect eof
+
+
+user1@host01:~$ ./answerbot
+
+TOTAL is less than 5
+
+
+
+user1@host01:~$ nano ./answerbot
+  
+  GNU nano 2.5.3                    Ô
+
+#!/usr/bin/expect -f
+
+set COUNT 0
+while { $COUNT <= 5 } {
+puts "\nCOUNT is currently at $COUNT"
+set COUNT [ expr $COUNT + 1 ]
+}
+puts ""
+
+
+user1@host01:~$ ./answerbot
+
+COUNT is currently at 0
+
+COUNT is currently at 1
+
+COUNT is currently at 2
+
+COUNT is currently at 3
+
+COUNT is currently at 4
+
+COUNT is currently at 5
+
+
+user1@host01:~$ nano ./answerbot
+  
+  GNU nano 2.5.3                   
+
+#!/usr/bin/expect -f
+
+for {set COUNT 0} {$COUNT <= 5} {incr COUNT} {
+puts "\nCOUNT is at $COUNT"
+}
+puts ""
+
+user1@host01:~$ ./answerbot
+
+COUNT is at 0
+
+COUNT is at 1
+
+COUNT is at 2
+
+COUNT is at 3
+
+COUNT is at 4
+
+COUNT is at 5
+
+
+
+user1@host01:~$ nano ./answerbot
+  
+  GNU nano 2.5.3                    
+#!/usr/bin/expect -f
+
+proc myfunc { MY_COUNT } {
+set MY_COUNT [expr $MY_COUNT + 1]
+return "$MY_COUNT"
+}
+
+set COUNT 0
+while {$COUNT <= 5} {
+puts "\nCOUNT is currently at $COUNT"
+set COUNT [myfunc $COUNT]
+}
+puts ""
+
+user1@host01:~$ ./answerbot
+
+COUNT is currently at 0
+
+COUNT is currently at 1
+
+COUNT is currently at 2
+
+COUNT is currently at 3
+
+COUNT is currently at 4
+
+COUNT is currently at 5
+
+
+user1@host01:~$ nano ./questions
+  
+  GNU nano 2.5.3                    
+
+#!/bin/bash
+
+echo "Hello, who are you?"
+read $REPLY
+echo "What is you password?"
+read $REPLY
+echo "What is your favorite topic?"
+read $REPLY
+
+user1@host01:~$ nano ./answerbot
+  
+  GNU nano 2.5.3                    
+
+#!/usr/bin/expect -f
+
+set timeout -1
+spawn ./questions
+expect "Hello, who are you?\r"
+send -- "Hi Im Anasta\r"
+expect "*password?\r"
+interact ++ return
+send "\r"
+expect "*topic?\r"
+send -- "Technology\r"
+expect eof
+
+user1@host01:~$ ./answerbot
+spawn ./questions
+Hello, who are you?
+Hi Im Anasta
+What is you password?
+mypass
+What is your favorite topic?
+Technology
