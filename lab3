@@ -1,0 +1,556 @@
+user1
+ti3yoNie8aivaiR
+178.20.158.119
+
+login as: user1
+user1@178.20.158.119's password:
+Welcome to Ubuntu 18.04.1 LTS (GNU/Linux 4.13.13-2-pve x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+
+ * Canonical Livepatch is available for installation.
+   - Reduce system reboots and improve kernel security. Activate at:
+     https://ubuntu.com/livepatch
+Last login: Wed Oct 24 10:44:12 2018 from 176.100.20.251
+user1@host01:~$ sleep 100
+^Z
+[1]+  Stopped                 sleep 100
+user1@host01:~$ ps -l
+F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+0 S  1001  4857  4856  0  80   0 -  4821 wait   pts/2    00:00:00 bash
+0 T  1001  4864  4857  0  80   0 -  1133 signal pts/2    00:00:00 sleep
+0 R  1001  4869  4857  0  80   0 -  6486 -      pts/2    00:00:00 ps
+user1@host01:~$ ^C
+user1@host01:~$ kill 4857
+user1@host01:~$ ps -l
+user1@host01:/$ do
+-bash: syntax error near unexpected token `do'
+user1@host01:/$ #!/bin/bash
+user1@host01:/$ trap "echo ' Trapped Ctrl-C'" SIGINT
+user1@host01:/$ echo This is a test script
+This is a test script
+user1@host01:/$ count=1
+user1@host01:/$ while [ $count -le 10 ]
+> do
+> echo "Loop #$count"
+> sleep 1
+> count=$(( $count + 1 ))
+> done
+Loop #1
+Loop #2
+Loop #3
+Loop #4
+Loop #5
+Loop #6
+Loop #7
+Loop #8
+Loop #9
+Loop #10
+user1@host01:/$ ^C Trapped Ctrl-C
+
+user1@host01:~$ nano myscript
+user1@host01:~$ ./myscript &
+[2] 5586
+user1@host01:~$
+
+user1@host01:~$ ps -l
+F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+0 S  1001  4857  4856  0  80   0 -  5334 wait   pts/2    00:00:00 bash
+0 T  1001  4864  4857  0  80   0 -  1133 signal pts/2    00:00:00 sleep
+0 R  1001  5603  4857  0  80   0 -  6486 -      pts/2    00:00:00 ps
+user1@host01:~$
+
+user1@host01:~$ nohup: ignoring input and appending output to 'nohup.out'
+
+[2]-  Done                    nohup ./myscript
+user1@host01:~$ nohup ./myscript &
+[2] 5617
+user1@host01:~$ nohup: ignoring input and appending output to 'nohup.out'
+
+[2]-  Done                    nohup ./myscript
+user1@host01:~$
+
+
+
+user1@host01:~$ nano myscript
+user1@host01:~$ ./myscript
+Loop #1
+^Z
+[2]+  Stopped                 ./myscript
+user1@host01:~$
+
+Loop #1
+^Z
+[2]+  Stopped                 ./myscript
+user1@host01:~$ ^C
+user1@host01:~$ ./mysciprt > outfile &
+[3] 5652
+user1@host01:~$ -bash: ./mysciprt: No such file or directory
+
+[3]   Exit 127                ./mysciprt > outfile
+user1@host01:~$ jobs -l
+[1]-  4864 Stopped                 sleep 100
+[2]+  5646 Stopped                 ./myscript
+user1@host01:~$ jobs
+[1]-  Stopped                 sleep 100
+[2]+  Stopped                 ./myscript
+user1@host01:~$ ./myscript > outfile &
+[3] 5656
+user1@host01:~$ jobs -l
+[1]-  4864 Stopped                 sleep 100
+[2]+  5646 Stopped                 ./myscript
+[3]   5656 Running                 ./myscript > outfile &
+user1@host01:~$
+user1@host01:~$ Loop #2
+
+user1@host01:~$ .Loop #3
+
+-bash: .: filename argument required
+.: usage: . filename [arguments]
+user1@host01:~$ ./,Loop #4
+-bash: ./: Is a directory
+user1@host01:~$ .Loop #5
+
+-bash: .: filename argument required
+.: usage: . filename [arguments]
+user1@host01:~$ ./myscriptLoop #6
+
+Loop #1
+^Z
+[4]+  Stopped                 ./myscript
+user1@host01:~$ Loop #7
+bg
+[4]+ ./myscript &
+user1@host01:~$ Loop #2
+bg
+[1]+ sleep 100 &
+user1@host01:~$ Loop #8
+Loop #3
+Loop #9
+fg
+./myscript
+Loop #4
+Loop #10
+
+^C
+[1]   Terminated              sleep 100
+[3]   Done                    ./myscript > outfile
+user1@host01:~$
+
+
+
+user1@host01:~$ chmod +x myscript.sh
+user1@host01:~$ ./myscript.sh
+Enter a value: 1
+adding value
+The new value is 11
+user1@host01:~$
+
+
+user1@host01:~$ ./myscript.sh
+Adding 10 and 15: 25
+Adding one number: 20
+Adding no numbers: -1
+Adding three numbers: -1
+user1@host01:~$
+
+user1@host01:~$ nano ./myscript.sh
+user1@host01:~$ ./myscript.sh
+Usage: myfunc a b
+user1@host01:~$ ./myscript.sh 10 20
+The result is 30
+user1@host01:~$
+
+
+
+
+
+user1@host01:~$ nano myscript.sh
+user1@host01:~$ ./myscript.sh
+Enter value: 5
+The factorial of 5 is: 120
+user1@host01:~$
+
+
+
+
+user1@host01:~$ echo "This is a test" | sed 's/test/another test/'
+This is a another test
+user1@host01:~$
+
+
+
+user1@host01:~$ awk '{print "Welcome to awk command tutorial"}'
+
+Welcome to awk command tutorial
+
+user1@host01:~$ awk -F: '{print $1}' /etc/passwd
+root
+daemon
+bin
+sys
+sync
+games
+man
+lp
+mail
+news
+uucp
+proxy
+www-data
+backup
+list
+irc
+gnats
+nobody
+syslog
+systemd-network
+systemd-resolve
+messagebus
+postfix
+_apt
+sshd
+uuidd
+user{1..15}
+user1
+user2
+user3
+user4
+user5
+user6
+user7
+user8
+user9
+user10
+user11
+user12
+user13
+user14
+user15
+admin
+7zfalsh
+user16
+admin17
+user1@host01:~$
+
+
+
+user1@host01:~$ echo "My name is Tom" | awk '{$4="Adam"; print $0}'
+My name is Adam
+user1@host01:~$
+
+
+user1@host01:~$ awk 'BEGIN {print "Hello World!"}'
+Hello World!
+
+
+user1@host01:~$ awk -f myscript /etc/passwd
+The latest list of users and shells
+ UserName        HomePath
+--------         -------
+root     /root
+daemon   /usr/sbin
+bin      /bin
+sys      /dev
+sync     /bin
+games    /usr/games
+man      /var/cache/man
+lp       /var/spool/lpd
+mail     /var/mail
+news     /var/spool/news
+uucp     /var/spool/uucp
+proxy    /bin
+www-data         /var/www
+backup   /var/backups
+list     /var/list
+irc      /var/run/ircd
+gnats    /var/lib/gnats
+nobody   /nonexistent
+syslog   /home/syslog
+systemd-network          /run/systemd/netif
+systemd-resolve          /run/systemd/resolve
+messagebus       /nonexistent
+postfix          /var/spool/postfix
+_apt     /nonexistent
+sshd     /run/sshd
+uuidd    /run/uuidd
+user{1..15}      /home/user{1..15}
+user1    /home/user1
+user2    /home/user2
+user3    /home/user3
+user4    /home/user4
+user5    /home/user5
+user6    /home/user6
+user7    /home/user7
+user8    /home/user8
+user9    /home/user9
+user10   /home/user10
+user11   /home/user11
+user12   /home/user12
+user13   /home/user13
+user14   /home/user14
+user15   /home/user15
+admin    /home/admin
+7zfalsh          /home/7zfalsh
+user16   /home/user16
+admin17          /home/admin17
+The end
+
+
+user1@host01:~$ awk -f myscript /etc/passwd^C
+user1@host01:~$ awk 'BEGIN{FS=":"; OFS="-"} {print $1,$6,$7}' /etc/passwd
+root-/root-/bin/bash
+daemon-/usr/sbin-/usr/sbin/nologin
+bin-/bin-/usr/sbin/nologin
+sys-/dev-/usr/sbin/nologin
+sync-/bin-/bin/sync
+games-/usr/games-/usr/sbin/nologin
+man-/var/cache/man-/usr/sbin/nologin
+lp-/var/spool/lpd-/usr/sbin/nologin
+mail-/var/mail-/usr/sbin/nologin
+news-/var/spool/news-/usr/sbin/nologin
+uucp-/var/spool/uucp-/usr/sbin/nologin
+proxy-/bin-/usr/sbin/nologin
+www-data-/var/www-/usr/sbin/nologin
+backup-/var/backups-/usr/sbin/nologin
+list-/var/list-/usr/sbin/nologin
+irc-/var/run/ircd-/usr/sbin/nologin
+gnats-/var/lib/gnats-/usr/sbin/nologin
+nobody-/nonexistent-/usr/sbin/nologin
+syslog-/home/syslog-/usr/sbin/nologin
+systemd-network-/run/systemd/netif-/usr/sbin/nologin
+systemd-resolve-/run/systemd/resolve-/usr/sbin/nologin
+messagebus-/nonexistent-/usr/sbin/nologin
+postfix-/var/spool/postfix-/usr/sbin/nologin
+_apt-/nonexistent-/usr/sbin/nologin
+sshd-/run/sshd-/usr/sbin/nologin
+uuidd-/run/uuidd-/usr/sbin/nologin
+user{1..15}-/home/user{1..15}-/bin/sh
+user1-/home/user1-/bin/bash
+user2-/home/user2-/bin/bash
+user3-/home/user3-/bin/bash
+user4-/home/user4-/bin/bash
+user5-/home/user5-/bin/bash
+user6-/home/user6-/bin/bash
+user7-/home/user7-/bin/bash
+user8-/home/user8-/bin/bash
+user9-/home/user9-/bin/bash
+user10-/home/user10-/bin/bash
+user11-/home/user11-/bin/bash
+user12-/home/user12-/bin/bash
+user13-/home/user13-/bin/bash
+user14-/home/user14-/bin/bash
+user15-/home/user15-/bin/bash
+admin-/home/admin-/bin/bash
+7zfalsh-/home/7zfalsh-/bin/sh
+user16-/home/user16-/bin/sh
+admin17-/home/admin17-/bin/bash
+
+
+user1@host01:~$ awk 'BEGIN{print ARGC,ARGV[1]}' myfile
+2 myfile
+
+
+user1@host01:~$ awk '
+> BEGIN{
+> print ENVIRON["HOME"]
+> print ENVIRON["PATH"]
+> }'
+/home/user1
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+user1@host01:~$
+
+user1@host01:~$ echo | awk -v home=$HOME '{print "My home is " home}'
+My home is /home/user1
+
+user1@host01:~$ awk 'BEGIN{FS=":"; OFS=":"} {print $1,$NF}' /etc/passwd
+root:/bin/bash
+daemon:/usr/sbin/nologin
+bin:/usr/sbin/nologin
+sys:/usr/sbin/nologin
+sync:/bin/sync
+games:/usr/sbin/nologin
+man:/usr/sbin/nologin
+lp:/usr/sbin/nologin
+mail:/usr/sbin/nologin
+news:/usr/sbin/nologin
+uucp:/usr/sbin/nologin
+proxy:/usr/sbin/nologin
+www-data:/usr/sbin/nologin
+backup:/usr/sbin/nologin
+list:/usr/sbin/nologin
+irc:/usr/sbin/nologin
+gnats:/usr/sbin/nologin
+nobody:/usr/sbin/nologin
+syslog:/usr/sbin/nologin
+systemd-network:/usr/sbin/nologin
+systemd-resolve:/usr/sbin/nologin
+messagebus:/usr/sbin/nologin
+postfix:/usr/sbin/nologin
+_apt:/usr/sbin/nologin
+sshd:/usr/sbin/nologin
+uuidd:/usr/sbin/nologin
+user{1..15}:/bin/sh
+user1:/bin/bash
+user2:/bin/bash
+user3:/bin/bash
+user4:/bin/bash
+user5:/bin/bash
+user6:/bin/bash
+user7:/bin/bash
+user8:/bin/bash
+user9:/bin/bash
+user10:/bin/bash
+user11:/bin/bash
+user12:/bin/bash
+user13:/bin/bash
+user14:/bin/bash
+user15:/bin/bash
+admin:/bin/bash
+7zfalsh:/bin/sh
+user16:/bin/sh
+admin17:/bin/bash
+
+
+user1@host01:~$ awk 'BEGIN{FS=","}{print $1,"FNR="FNR}' myfile myfile
+echo "This is a test" | sed 's/test/another test/' FNR=1
+echo "This is a test" | sed 's/test/another test/' FNR=1
+
+
+user1@host01:~$ awk '
+> BEGIN {FS=","}
+> {print $1,"FNR="FNR,"NR="NR}
+> END{print "There were",NR,"records processed"}' myfile myfile
+echo "This is a test" | sed 's/test/another test/' FNR=1 NR=1
+echo "This is a test" | sed 's/test/another test/' FNR=1 NR=2
+There were 2 records processed
+
+
+ user1@host01:~$ awk '
+> BEGIN{
+> test="This is a test"
+> print test
+> }'
+This is a test
+
+user1@host01:~$ awk '{if ($1 > 20) print $1}' testfile
+33
+45
+
+
+user1@host01:~$ nano testfile
+user1@host01:~$ awk '{
+total = 0
+i = 1
+while (i < 4)
+{
+total += $i
+i++
+}
+avg = total / 3
+print "Average:",avg
+}' testfile
+Average: 3.33333
+user1@host01:~$
+
+
+user1@host01:~$ awk '{
+> total = 0
+> i = 1
+> while (i < 4)
+> {
+> total += $i
+> if (i == 2)
+> break
+> i++
+> }
+> avg = total / 2
+> print "The average of the first two elements is:",avg
+> }' testfile
+The average of the first two elements is: 5
+
+
+user1@host01:~$ awk '{
+> total = 0
+> for (i = 1; i < 4; i++)
+> {
+> total += $i
+> }
+> avg = total / 3
+> print "Average:",avg
+> }' testfile
+Average: 3.33333
+
+
+user1@host01:~$ awk 'BEGIN{
+> x = 100 * 100
+> printf "The result is: %e\n", x
+> }'
+The result is: 1.000000e+04
+
+
+user1@host01:~$ awk 'BEGIN{x=exp(5); print x}'
+148.413
+
+user1@host01:~$ awk 'BEGIN{x = "likegeeks"; print toupper(x)}'
+LIKEGEEKS
+
+
+user1@host01:~$ awk '
+> function myprint()
+> {
+> printf "The user %s has home path at %s\n", $1,$6
+> }
+> BEGIN{FS=":"}
+> {
+> myprint()
+> }' /etc/passwd
+The user root has home path at /root
+The user daemon has home path at /usr/sbin
+The user bin has home path at /bin
+The user sys has home path at /dev
+The user sync has home path at /bin
+The user games has home path at /usr/games
+The user man has home path at /var/cache/man
+The user lp has home path at /var/spool/lpd
+The user mail has home path at /var/mail
+The user news has home path at /var/spool/news
+The user uucp has home path at /var/spool/uucp
+The user proxy has home path at /bin
+The user www-data has home path at /var/www
+The user backup has home path at /var/backups
+The user list has home path at /var/list
+The user irc has home path at /var/run/ircd
+The user gnats has home path at /var/lib/gnats
+The user nobody has home path at /nonexistent
+The user syslog has home path at /home/syslog
+The user systemd-network has home path at /run/systemd/netif
+The user systemd-resolve has home path at /run/systemd/resolve
+The user messagebus has home path at /nonexistent
+The user postfix has home path at /var/spool/postfix
+The user _apt has home path at /nonexistent
+The user sshd has home path at /run/sshd
+The user uuidd has home path at /run/uuidd
+The user user{1..15} has home path at /home/user{1..15}
+The user user1 has home path at /home/user1
+The user user2 has home path at /home/user2
+The user user3 has home path at /home/user3
+The user user4 has home path at /home/user4
+The user user5 has home path at /home/user5
+The user user6 has home path at /home/user6
+The user user7 has home path at /home/user7
+The user user8 has home path at /home/user8
+The user user9 has home path at /home/user9
+The user user10 has home path at /home/user10
+The user user11 has home path at /home/user11
+The user user12 has home path at /home/user12
+The user user13 has home path at /home/user13
+The user user14 has home path at /home/user14
+The user user15 has home path at /home/user15
+The user admin has home path at /home/admin
+The user 7zfalsh has home path at /home/7zfalsh
+The user user16 has home path at /home/user16
+The user admin17 has home path at /home/admin17
