@@ -1,0 +1,315 @@
+login as: user1
+user1@178.20.158.119's password:
+Access denied
+user1@178.20.158.119's password:
+Welcome to Ubuntu 18.04.1 LTS (GNU/Linux 4.13.13-2-pve x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+
+ * Canonical Livepatch is available for installation.
+   - Reduce system reboots and improve kernel security. Activate at:
+     https://ubuntu.com/livepatch
+Last login: Thu Sep 27 15:05:53 2018 from 92.244.101.34
+user1@host01:~$ hostname
+host01
+user1@host01:~$ whoami
+user1
+user1@host01:~$ pwd
+/home/user1
+user1@host01:~$ date +"%y-%d, %A"
+18-27-09,Thursday
+
+user1@lab:~$ ls
+nano.save  test.sh  text
+
+
+user1@lab:~$ ls -l
+total 8
+-rw------- 1 user1 user1  2 Oct 27 07:41 nano.save
+-rw-rw-r-- 1 user1 user1  0 Oct 20 09:29 test.sh
+-rwxrwxr-x 1 user1 user1 26 Oct 27 07:24 text
+
+
+user1@lab:~$ ls -ld /home
+drwxr-xr-x 12 root root 4096 Oct 20 07:59 /home
+
+
+user1@lab:~$ ls -l /home
+total 40
+drwxr-xr-x 4 user1  user1  4096 Oct 27 07:41 user1
+drwxr-xr-x 4 user10 user10 4096 Oct 27 08:17 user10
+drwxr-xr-x 2 user2  user2  4096 Oct 20 07:59 user2
+drwxr-xr-x 4 user3  user3  4096 Oct 31 15:55 user3
+drwxr-xr-x 2 user4  user4  4096 Oct 20 07:59 user4
+drwxr-xr-x 2 user5  user5  4096 Oct 20 07:59 user5
+drwxr-xr-x 2 user6  user6  4096 Oct 20 07:59 user6
+drwxr-xr-x 2 user7  user7  4096 Oct 20 07:59 user7
+drwxr-xr-x 2 user8  user8  4096 Oct 20 07:59 user8
+drwxr-xr-x 3 user9  user9  4096 Oct 20 08:06 user9
+
+
+user1@lab:~$ grep root /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+
+
+user1@lab:~$ man grep
+GREP(1)                     General Commands Manual                    GREP(1)
+
+NAME
+       grep, egrep, fgrep, rgrep - print lines matching a pattern
+
+SYNOPSIS
+       grep [OPTIONS] PATTERN [FILE...]
+       grep [OPTIONS] [-e PATTERN]...  [-f FILE]...  [FILE...]
+
+DESCRIPTION
+       grep searches the named input FILEs for lines containing a match to the
+       given PATTERN.  If no files are specified, or if the file "-" is given,
+       grep  searches  standard  input.   By default, grep prints the matching
+       lines.
+
+       In addition, the variant programs egrep, fgrep and rgrep are  the  same
+       as  grep -E,  grep -F,  and  grep -r, respectively.  These variants are
+       deprecated, but are provided for backward compatibility.
+
+OPTIONS
+   Generic Program Information
+       --help Output a usage message and exit.
+       
+user1@lab:~$ cat /etc/bash.bashrc
+# System-wide .bashrc file for interactive bash(1) shells.
+
+# To enable the settings / commands in this file for login shells as well,
+# this file has to be sourced in /etc/profile.
+
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, overwrite the one in /etc/profile)
+PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+
+# Commented out, don't overwrite xterm -T "title" -n "icontitle" by default.
+# If this is an xterm set the title to user@host:dir
+#case "$TERM" in
+#xterm*|rxvt*)
+#    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
+#    ;;
+#*)
+#    ;;
+#esac
+
+# enable bash completion in interactive shells
+#if ! shopt -oq posix; then
+#  if [ -f /usr/share/bash-completion/bash_completion ]; then
+#    . /usr/share/bash-completion/bash_completion
+#  elif [ -f /etc/bash_completion ]; then
+#    . /etc/bash_completion
+#  fi
+#fi
+
+# sudo hint
+if [ ! -e "$HOME/.sudo_as_admin_successful" ] && [ ! -e "$HOME/.hushlogin" ] ; then
+    case " $(groups) " in *\ admin\ *|*\ sudo\ *)
+    if [ -x /usr/bin/sudo ]; then
+        cat <<-EOF
+        To run a command as administrator (user "root"), use "sudo <command>".
+        See "man sudo_root" for details.
+
+        EOF
+    fi
+    esac
+fi
+
+# if the command-not-found package is installed, use it
+if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found/command-not-found ]; then
+        function command_not_found_handle {
+                # check because c-n-f could've been removed in the meantime
+                if [ -x /usr/lib/command-not-found ]; then
+                   /usr/lib/command-not-found -- "$1"
+                   return $?
+                elif [ -x /usr/share/command-not-found/command-not-found ]; then
+                   /usr/share/command-not-found/command-not-found -- "$1"
+                   return $?
+                else
+                   printf "%s: command not found\n" "$1" >&2
+                   return 127
+                fi
+        }
+fi
+
+user1@lab:~$ less /etc/bash.bashrc
+# System-wide .bashrc file for interactive bash(1) shells.
+
+# To enable the settings / commands in this file for login shells as well,
+# this file has to be sourced in /etc/profile.
+
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, overwrite the one in /etc/profile)
+PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+
+# Commented out, don't overwrite xterm -T "title" -n "icontitle" by default.
+# If this is an xterm set the title to user@host:dir
+#case "$TERM" in
+#xterm*|rxvt*)
+#    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
+#    ;;
+#*)
+#    ;;
+#esac
+
+# enable bash completion in interactive shells
+#if ! shopt -oq posix; then
+#  if [ -f /usr/share/bash-completion/bash_completion ]; then
+#    . /usr/share/bash-completion/bash_completion
+#  elif [ -f /etc/bash_completion ]; then
+#    . /etc/bash_completion
+#  fi
+#fi
+
+# sudo hint
+if [ ! -e "$HOME/.sudo_as_admin_successful" ] && [ ! -e "$HOME/.hushlogin" ] ; then
+    case " $(groups) " in *\ admin\ *|*\ sudo\ *)
+    if [ -x /usr/bin/sudo ]; then
+        cat <<-EOF
+        To run a command as administrator (user "root"), use "sudo <command>".
+        See "man sudo_root" for details.
+
+        EOF
+    fi
+    esac
+fi
+
+# if the command-not-found package is installed, use it
+if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found/command-not-found ]; then
+        function command_not_found_handle {
+                # check because c-n-f could've been removed in the meantime
+                if [ -x /usr/lib/command-not-found ]; then
+                   /usr/lib/command-not-found -- "$1"
+                   return $?
+                elif [ -x /usr/share/command-not-found/command-not-found ]; then
+                   /usr/share/command-not-found/command-not-found -- "$1"
+                   return $?
+                else
+                   printf "%s: command not found\n" "$1" >&2
+                   return 127
+                fi
+        }
+fi
+
+
+user1@lab:~$ wc
+good day today
+good day
+      2       5      24
+
+
+user1@lab:~$ head -n3 /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+
+
+user1@lab:~$ head -n3 /etc/passwd | wc
+      3       3     117
+
+
+user1@lab:~$ head -n3 /etc/passwd | wc | wc
+      1       3      24
+
+
+user1@lab:~$ date > /tmp/today.txt
+user1@lab:~$ cat /tmp/today.txt
+Sat Sep 29 15:17:19 UTC 2018
+Sat Sep 29 15:17:58 UTC 2018
+
+
+
+user1@lab:~$ wc < /etc/passwd
+  45   53 2157
+
+
+
+user1@lab:~$ ps axuww
+
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.5  77336  6196 ?        Ss   Sep27   0:02 /sbin/init
+root        42  0.0 12.3 297716 129320 ?       S<s  Sep27   0:21 /lib/systemd/systemd-journald
+systemd+    49  0.0  0.2  71820  3088 ?        Ss   Sep27   0:00 /lib/systemd/systemd-networkd
+systemd+    78  0.0  0.2  70612  3144 ?        Ss   Sep27   0:00 /lib/systemd/systemd-resolved
+root        79  0.0  0.2  28356  2736 ?        Ss   Sep27   0:00 /usr/sbin/cron -f
+message+    80  0.0  0.3  50056  3524 ?        Ss   Sep27   0:01 /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+root        81  0.0  0.4 284828  4408 ?        Ssl  Sep27   0:09 /usr/lib/accountsservice/accounts-daemon
+syslog      82  0.0  0.3 263036  3772 ?        Ssl  Sep27   0:03 /usr/sbin/rsyslogd -n
+root        83  0.0  0.4  70588  4576 ?        Ss   Sep27   0:00 /lib/systemd/systemd-logind
+root        84  0.0  1.0 167440 11380 ?        Ssl  Sep27   0:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+root        90  0.0  0.1  13020  1836 pts/0    Ss+  Sep27   0:00 /sbin/agetty -o -p -- \u --noclear --keep-baud tty1 115200,38400,9600 linux
+root        91  0.0  0.1  13020  1876 pts/0    Ss+  Sep27   0:00 /sbin/agetty -o -p -- \u --noclear --keep-baud console 115200,38400,9600 linux
+root       133  0.0  0.5  72296  6228 ?        Ss   Sep27   0:04 /usr/sbin/sshd -D
+root       253  0.0  0.3  67392  3584 ?        Ss   Sep27   0:00 /usr/lib/postfix/sbin/master -w
+postfix    256  0.0  0.4  73872  4684 ?        S    Sep27   0:00 qmgr -l -t unix -u
+postfix   3681  0.0  0.4  73824  4744 ?        S    17:24   0:00 pickup -l -t unix -u -c
+root      4336  0.0  0.6 105684  7012 ?        Ss   18:38   0:00 sshd: user1 [priv]
+user1     4338  0.0  0.7  76504  7492 ?        Ss   18:38   0:00 /lib/systemd/systemd --user
+user1     4339  0.0  0.1 111320  1952 ?        S    18:38   0:00 (sd-pam)
+user1     4386  0.0  0.5 107984  5420 ?        S    18:38   0:00 sshd: user1@pts/2
+user1     4387  0.0  0.3  19284  4044 pts/2    Ss   18:38   0:00 -bash
+root      4485  0.0  0.6 105872  6736 ?        Ss   18:51   0:00 sshd: root [priv]
+sshd      4486  0.0  0.2  72296  2960 ?        S    18:51   0:00 sshd: root [net]
+user1     4487  0.0  0.2  34400  2888 pts/2    R+   18:51   0:00 ps axuww
+ps
+
+
+user1@lab:~$ ps axuww | grep `whoami`
+user1     4512  0.0  0.0  11464  1008 pts/2    S+   18:53   0:00 grep whoami
+
+
+lsuser1@lab:~$ ps axuww | grep `whoami` | grep '\<task-6-server\>'
+user1     8098  0.0  0.0  13332  1020 pts/2    S+   18:19   0:00 grep \<task-6-server\>
+
+
+user1@lab:~$ ps axuww | grep `whoami` | grep '\<task-6-server\>' | grep -v vim
+user1     8104  0.0  0.0  13332   936 pts/2    S+   18:19   0:00 grep \<task-6-server\>
+
+
+user1@lab:~$ ps axuww | grep `whoami` | grep '\<task-6-server\>' | grep -v vim | grep -v less
+user1     8109  0.0  0.0  13332   960 pts/2    S+   18:20   0:00 grep \<task-6-server\>
+
+
+user1@lab:~$ ps axuww | grep `whoami` | grep '\<task-6-server\>' | grep -v vim | grep -v less | awk '{print $2}'
+8120
+
+
+user1@lab:~$ ps axuww | grep `whoami` | grep '\<task-6-server\>' | grep -v vim | grep -v less | awk '{print $2}' | wc -l
+1
+
+user1@lab:~$ ps axuww | grep `whoami` | grep '\<task-6-server\>' | wc -l
+1
+
+user1@lab:~$ ps axuww | grep `whoami` | wc -l
+11
+
+user1@lab:~$ ps axuww | wc -l
+36
